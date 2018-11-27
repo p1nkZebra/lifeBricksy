@@ -1,0 +1,65 @@
+<!--ГРАФИК-->
+<div id="chartContainer"
+     style="height: 370px;
+     width: 100%;
+     margin-left:auto;
+     margin-right:auto;">
+
+</div>
+<!--МОДАЛЬНЫЕ ОКНА-->
+<div class="modal" *ngIf="doOpenModalWindow">
+    <div class="modal-dialog" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-label="Close" class="close" type="button">
+                    <clr-icon aria-hidden="true" shape="close"></clr-icon>
+                </button>
+                <h3 class="modal-title">Set you goal!</h3>
+            </div>
+            <div class="modal-body">
+                <form clrForm [formGroup]="goalFormGroup">
+                    <clr-input-container>
+                        <label>Goal name</label>
+                        <input clrInput placeholder=""
+                               name="goalName"
+                               [formControl]="goalNameInputFormControl"
+                               [formControlName]="'goalNameInputFormControlName'"
+                        />
+                    </clr-input-container>
+                    <clr-input-container>
+                        <label>Value</label>
+                        <input clrInput placeholder=""
+                               name="goalValue"
+                               [formControl]="goalValueInputFormControl"
+                               [formControlName]="'goalValueInputFormControlName'"
+                        />
+                    </clr-input-container>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button"
+                        class="btn btn-outline"
+                        (click)="closeModal()">Cancel
+                </button>
+
+                <button type="button"
+                        class="btn btn-primary"
+                        (click)="addGoalModal()">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--КНОПКИ-->
+<div>
+    <button class="btn btn-outline"
+            (click)="doOpenModal()">
+        Add your goal
+    </button>
+</div>
+
+<div>
+    <button class="btn btn-outline">
+        Delete goal
+    </button>
+</div>
