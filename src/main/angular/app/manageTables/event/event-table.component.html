@@ -1,0 +1,165 @@
+<!--<div class="row">-->
+    <!--<div class="col-lg-6"></div>-->
+
+    <!--<div class="col-lg-6">-->
+        <!--<clr-datagrid [(clrDgSelected)]="selectedEventsLine">-->
+            <!--<clr-dg-action-bar>-->
+                <!--<div class="btn-group">-->
+                    <!--<button *ngIf="selectedEventsLine.length == 0"-->
+                            <!--type="button"-->
+                            <!--class="btn btn-sm btn-secondary"-->
+                            <!--(click)="onAddEvent()">-->
+                        <!--<clr-icon shape="plus"></clr-icon>-->
+                        <!--Add-->
+                    <!--</button>-->
+
+                    <!--<button *ngIf="selectedEventsLine.length > 0"-->
+                            <!--type="button"-->
+                            <!--class="btn btn-sm btn-secondary"-->
+                            <!--(click)="onDeleteEvent()">-->
+                        <!--<clr-icon shape="close"></clr-icon>-->
+                        <!--Delete-->
+                    <!--</button>-->
+                    <!--<button *ngIf="selectedEventsLine.length == 1"-->
+                            <!--type="button"-->
+                            <!--class="btn btn-sm btn-secondary"-->
+                            <!--(click)="onEditEvent()">-->
+                        <!--<clr-icon shape="close"></clr-icon>-->
+                        <!--Edit-->
+                    <!--</button>-->
+                <!--</div>-->
+            <!--</clr-dg-action-bar>-->
+
+            <!--<clr-dg-column>Id</clr-dg-column>-->
+            <!--<clr-dg-column>Name</clr-dg-column>-->
+            <!--<clr-dg-column>Comment</clr-dg-column>-->
+            <!--<clr-dg-column>ContributionId</clr-dg-column>-->
+
+            <!--<clr-dg-row *clrDgItems="let event of allEvents" [clrDgItem]="event">-->
+                <!--<clr-dg-cell>{{event.id}}</clr-dg-cell>-->
+                <!--<clr-dg-cell>{{event.name}}</clr-dg-cell>-->
+                <!--<clr-dg-cell>{{event.comment}}</clr-dg-cell>-->
+                <!--<clr-dg-cell>{{event.contributionId}}</clr-dg-cell>-->
+            <!--</clr-dg-row>-->
+
+            <!--<clr-dg-footer>{{allEvents.length}} events</clr-dg-footer>-->
+        <!--</clr-datagrid>-->
+    <!--</div>-->
+<!--</div>-->
+
+
+<!--&lt;!&ndash;<div class="modal" *ngIf="doOpenAddEventModal">&ndash;&gt;-->
+    <!--&lt;!&ndash;<div class="modal-dialog" role="dialog" aria-hidden="true">&ndash;&gt;-->
+        <!--&lt;!&ndash;<div class="modal-content">&ndash;&gt;-->
+            <!--&lt;!&ndash;<div class="modal-header">&ndash;&gt;-->
+
+                <!--&lt;!&ndash;<button aria-label="Close"&ndash;&gt;-->
+                        <!--&lt;!&ndash;class="close"&ndash;&gt;-->
+                        <!--&lt;!&ndash;type="button"&ndash;&gt;-->
+                        <!--&lt;!&ndash;(click)="closeModalEvent()">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<clr-icon aria-hidden="true"&ndash;&gt;-->
+                              <!--&lt;!&ndash;shape="close"></clr-icon>&ndash;&gt;-->
+                <!--&lt;!&ndash;</button>&ndash;&gt;-->
+
+                <!--&lt;!&ndash;<h3 class="modal-title">Add new Event</h3>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+            <!--&lt;!&ndash;<div class="modal-body">&ndash;&gt;-->
+                <!--&lt;!&ndash;<form clrForm [formGroup]="eventInputFormGroup">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<clr-input-container>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<label>Event name</label>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<input clrInput placeholder=""&ndash;&gt;-->
+                               <!--&lt;!&ndash;name="eventName"&ndash;&gt;-->
+                               <!--&lt;!&ndash;[formControl]="eventNameInputFormControl"&ndash;&gt;-->
+                               <!--&lt;!&ndash;[formControlName]="'eventNameInputFormControlName'"&ndash;&gt;-->
+                        <!--&lt;!&ndash;/>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</clr-input-container>&ndash;&gt;-->
+
+                    <!--&lt;!&ndash;<clr-input-container>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<label>Comment</label>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<input clrInput placeholder=""&ndash;&gt;-->
+                               <!--&lt;!&ndash;name="eventComment"&ndash;&gt;-->
+                               <!--&lt;!&ndash;[formControl]="eventCommentInputFormControl"&ndash;&gt;-->
+                               <!--&lt;!&ndash;[formControlName]="'eventCommentInputFormControlName'"&ndash;&gt;-->
+                        <!--&lt;!&ndash;/>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</clr-input-container>&ndash;&gt;-->
+
+                    <!--&lt;!&ndash;<select [formControlName]="'eventContributionFormControlName'">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<option [ngValue]="contribution" *ngFor="let contribution of allContributionForSelect">{{contribution.name}}</option>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</select>&ndash;&gt;-->
+
+                <!--&lt;!&ndash;</form>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+            <!--&lt;!&ndash;<div class="modal-footer">&ndash;&gt;-->
+                <!--&lt;!&ndash;<button type="button"&ndash;&gt;-->
+                        <!--&lt;!&ndash;class="btn btn-outline"&ndash;&gt;-->
+                        <!--&lt;!&ndash;(click)="closeModalEvent()">Cancel&ndash;&gt;-->
+                <!--&lt;!&ndash;</button>&ndash;&gt;-->
+
+                <!--&lt;!&ndash;<button type="button"&ndash;&gt;-->
+                        <!--&lt;!&ndash;class="btn btn-primary"&ndash;&gt;-->
+                        <!--&lt;!&ndash;(click)="saveNewEvent()">Ok&ndash;&gt;-->
+                <!--&lt;!&ndash;</button>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<div *ngIf="doOpenAddEventModal"&ndash;&gt;-->
+     <!--&lt;!&ndash;class="modal-backdrop"&ndash;&gt;-->
+     <!--&lt;!&ndash;aria-hidden="true">&ndash;&gt;-->
+
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+
+
+<!--&lt;!&ndash;<div class="modal" *ngIf="doOpenEditResourceModal">&ndash;&gt;-->
+    <!--&lt;!&ndash;<div class="modal-dialog" role="dialog" aria-hidden="true">&ndash;&gt;-->
+        <!--&lt;!&ndash;<div class="modal-content">&ndash;&gt;-->
+            <!--&lt;!&ndash;<div class="modal-header">&ndash;&gt;-->
+                <!--&lt;!&ndash;<button aria-label="Close" class="close" type="button">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<clr-icon aria-hidden="true" shape="close"></clr-icon>&ndash;&gt;-->
+                <!--&lt;!&ndash;</button>&ndash;&gt;-->
+                <!--&lt;!&ndash;<h3 class="modal-title">Edit Resource</h3>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--&lt;!&ndash;<div class="modal-body">&ndash;&gt;-->
+                <!--&lt;!&ndash;<form clrForm [formGroup]="resourceEditInputFormGroup">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<clr-input-container>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<label>Resource name</label>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<input clrInput placeholder=""&ndash;&gt;-->
+                               <!--&lt;!&ndash;name="resourceName"&ndash;&gt;-->
+                               <!--&lt;!&ndash;[formControl]="resourceEditNameInputFormControl"&ndash;&gt;-->
+                               <!--&lt;!&ndash;[formControlName]="'resourceEditNameInputFormControlName'"&ndash;&gt;-->
+                        <!--&lt;!&ndash;/>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</clr-input-container>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<clr-input-container>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<label>Comment</label>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<input clrInput placeholder=""&ndash;&gt;-->
+                               <!--&lt;!&ndash;name="resourceEditComment"&ndash;&gt;-->
+                               <!--&lt;!&ndash;[formControl]="resourceEditCommentInputFormControl"&ndash;&gt;-->
+                               <!--&lt;!&ndash;[formControlName]="'resourceEditCommentInputFormControlName'"&ndash;&gt;-->
+                        <!--&lt;!&ndash;/>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</clr-input-container>&ndash;&gt;-->
+                <!--&lt;!&ndash;</form>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--&lt;!&ndash;<div class="modal-footer">&ndash;&gt;-->
+                <!--&lt;!&ndash;<button type="button"&ndash;&gt;-->
+                        <!--&lt;!&ndash;class="btn btn-outline"&ndash;&gt;-->
+                        <!--&lt;!&ndash;(click)="closeModal()">Cancel&ndash;&gt;-->
+                <!--&lt;!&ndash;</button>&ndash;&gt;-->
+
+                <!--&lt;!&ndash;<button type="button"&ndash;&gt;-->
+                        <!--&lt;!&ndash;class="btn btn-primary"&ndash;&gt;-->
+                        <!--&lt;!&ndash;(click)="editResource()">Edit</button>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<div *ngIf="doOpenEditResourceModal"&ndash;&gt;-->
+     <!--&lt;!&ndash;class="modal-backdrop"&ndash;&gt;-->
+     <!--&lt;!&ndash;aria-hidden="true">&ndash;&gt;-->
+
+<!--</div>-->
