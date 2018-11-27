@@ -9,25 +9,25 @@
             http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd
         ">
 
-    <!-- Create database tag -->
-    <!--<changeSet id="0.0.x" author="p1nkZebra">-->
-        <!--<tagDatabase tag="0.0.x"/>-->
-    <!--</changeSet>-->
+     <!--Create database tag-->
+    <changeSet id="0.0.x" author="p1nkZebra">
+        <tagDatabase tag="0.0.x"/>
+    </changeSet>
 
-    <!--&lt;!&ndash; Create Property table &ndash;&gt;-->
-    <!--<changeSet id="create-property" author="p1nkZebra">-->
-        <!--<createTable tableName="property">-->
-            <!--<column name="name" type="VARCHAR(255)">-->
-                <!--<constraints-->
-                        <!--nullable="false"-->
-                        <!--unique="true"-->
-                <!--/>-->
-            <!--</column>-->
-            <!--<column name="value" type="VARCHAR(255)">-->
-                <!--<constraints nullable="false"/>-->
-            <!--</column>-->
-        <!--</createTable>-->
-    <!--</changeSet>-->
+    <!-- Create Property table -->
+    <changeSet id="create-property" author="p1nkZebra">
+        <createTable tableName="property">
+            <column name="name" type="VARCHAR(255)">
+                <constraints
+                        nullable="false"
+                        unique="true"
+                />
+            </column>
+            <column name="value" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
 
     <include file="changelog/1.0.x/1-event-table.xml" relativeToChangelogFile="true"/>
     <include file="changelog/1.0.x/2-goal-table.xml" relativeToChangelogFile="true"/>
