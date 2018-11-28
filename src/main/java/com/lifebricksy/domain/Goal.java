@@ -29,11 +29,11 @@ public class Goal {
     private String tag;
 
     @Getter(onMethod = @__(@NotNull))
-    @Column(name = "valueOfGoal")
-    private Long valueOfGoal;
+    @Column(name = "goal")
+    private Long goal;
 
     @Getter(onMethod = @__(@NotNull))
-    @Column(name = "valueOfDone")
-    private Long valueOfDone;
+    @Column(name = "progress")
+    private Long progress;
 
 }

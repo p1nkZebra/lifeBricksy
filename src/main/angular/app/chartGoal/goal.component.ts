@@ -129,10 +129,10 @@ export class GoalComponent implements OnInit, OnDestroy {
         let goal: RawGoal = new RawGoal();
 
         goal.name = goalName;
-        goal.value = goalValue;
-
         goal.tag = tag;
+        goal.goal = goalValue;
         goal.progress = valueOfDone;
+
 
         this.httpService.addNewGoal(goal).pipe(
             tap(() => {

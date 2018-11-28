@@ -4,7 +4,7 @@ export class RawGoal {
     id: number;
     name: string;
     tag: string;
-    value: number;
+    goal: number;
     progress:number;
 
 }
