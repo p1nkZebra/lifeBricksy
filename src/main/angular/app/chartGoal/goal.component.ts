@@ -2,14 +2,15 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {GoalService} from "@app/service/goal.service";
 import {AbstractControl, FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import * as CanvasJS from './canvasjs.min';
-import {Dictionary} from "async";
+import {Dictionary, log} from "async";
 import {RawGoal} from "@app/model/chart/rawGoal";
 import {finalize, tap} from "rxjs/operators";
 
-export interface GoalInputs extends Dictionary<AbstractControl>{
-     goalNameInputFormControlName:AbstractControl,
-    goalValueInputFormControlName:AbstractControl,
+export interface GoalInputs extends Dictionary<AbstractControl> {
+    goalNameInputFormControlName: AbstractControl,
+    goalValueInputFormControlName: AbstractControl,
 }
+
 @Component({
     selector: 'goal',
     providers: [GoalService],
@@ -18,17 +19,14 @@ export interface GoalInputs extends Dictionary<AbstractControl>{
 })
 export class GoalComponent implements OnInit, OnDestroy {
 
-    nameOfGoal: string;
-    valueThatLeftToComplete: number;
-    valueAlreadyDone:number = 0;
-    valueOfGoal:number;
+    allGoal: RawGoal[] = [];
 
-    doOpenModalWindow:boolean = false;
+    doOpenModalWindow: boolean = false;
 
-    goalFormGroup:FormGroup;
+    goalFormGroup: FormGroup;
 
-    goalNameInputFormControl:FormControl = new FormControl();
-    goalValueInputFormControl:FormControl = new FormControl();
+    goalNameInputFormControl: FormControl = new FormControl();
+    goalValueInputFormControl: FormControl = new FormControl();
 
 
     constructor(private httpService: GoalService,
@@ -44,19 +42,19 @@ export class GoalComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
+        //получаем все данные с БД
+        this.getAllGoalTs();
         //рисуем диаграмму
-        this.drawChartsTest(this.getNameOfGoal(),this.getGoalValue(),this.getValueThatAlreadyDone());
+        // this.drawChartsTest(this.getNameOfGoal(), this.getGoalValue(), this.getValueThatAlreadyDone());
     }
 
 
 // рисовка таблицы
-  drawChartsTest(nameOfGoal:string, valueOfGoal:number , valueAlreadyDone:number) {
+    drawChartsTest(nameOfGoal: string, valueOfGoal: number, valueAlreadyDone: number) {
         //получаем имя из БД
 
         let valueThatLeftToComplete = valueOfGoal - valueAlreadyDone;
 
-
-        this.valueThatLeftToComplete = this.valueOfGoal - this.valueAlreadyDone;
 
         //получаем значение которое осталось
         let chart = new CanvasJS.Chart("chartContainer", {
@@ -64,7 +62,7 @@ export class GoalComponent implements OnInit, OnDestroy {
             animationEnabled: true,
             exportEnabled: true,
             title: {
-                text: nameOfGoal +" "+ valueOfGoal
+                text: nameOfGoal + " " + valueOfGoal
             },
             data: [{
                 type: "pie",
@@ -82,38 +80,66 @@ export class GoalComponent implements OnInit, OnDestroy {
 
     }
 
+    getAllGoalTs() {
+        this.httpService.getAllGoal()
+            .pipe(
+                tap(() => {
+
+                }),
+                finalize(() => {
+
+                })
+            ).subscribe(
+            response => {
+                this.allGoal = response;
+            },
+            (error) => {
+                console.log(error);
+            }
+        );
+
+        if (this.allGoal.length == 0){
+            console.log("EMPTY")
+        } else {
+            console.log(this.allGoal);
+        }
+
+    }
 
 // Данные для работы с диаграммой
     //получить название цели .
-    getNameOfGoal() :string {
+    getNameOfGoal(): string {
 
-        return "Бег"
+        console.log("goals", this.allGoal);
+        return this.allGoal[0].name;
+
     }
 
-    getValueThatAlreadyDone() : number {
+    getValueThatAlreadyDone(): number {
 
-        return 1000;
+        return this.allGoal[0].progress;
     }
 
-    getGoalValue():number{
-    return 10000;
+    getGoalValue(): number {
+        return this.allGoal[0].goal;
     }
 
 
     //КНОПКИ
-    closeModal(){
+    closeModal() {
         this.doOpenModalWindow = false;
     }
-    addGoalModal(){
+
+    addGoalModal() {
         console.log("saveNewGoal");
 
         let inputs = this.goalFormGroup.controls as GoalInputs;
 
-        let goalName:string = inputs.goalNameInputFormControlName.value;
-        let goalValue:number = inputs.goalValueInputFormControlName.value;
+        let goalName: string = inputs.goalNameInputFormControlName.value;
+        let goalValue: number = inputs.goalValueInputFormControlName.value;
 
-        let valueOfDone:number = 0;
-        let tag:string = "Test Tag";
+        let valueOfDone: number = 0;
+        let tag: string = "Test Tag";
 
         //name nullable
         //tag nullable
@@ -138,14 +164,14 @@ export class GoalComponent implements OnInit, OnDestroy {
             tap(() => {
 
             }),
-            finalize(() =>{
+            finalize(() => {
                 this.closeModal();
             })
         ).subscribe();
 
     }
 
-    doOpenModal(){
+    doOpenModal() {
         this.doOpenModalWindow = true;
     }
 

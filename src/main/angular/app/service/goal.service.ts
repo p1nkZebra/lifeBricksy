@@ -15,4 +15,12 @@ export class GoalService {
     addNewGoal(goal:RawGoal){
         return this.http.post("life-bricksy/add-new-goal",classToPlain(goal));
     }
+
+    getAllGoal() {
+        return this.http.get<RawGoal[]>("life-bricksy/get-all-goal" )
+            .pipe(
+                map(response => plainToClass(RawGoal, response as Object[])
+                )
+            );
+    }
 }
